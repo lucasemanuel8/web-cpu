@@ -44,10 +44,15 @@ export default {
             this.result = this.convertToBin(this.convertToDec(this.reg_ax) & this.convertToDec(this.reg_bx)); 
         },
         nand() { 
-            this.result = this.convertToBin(this.convertToDec(this.reg_ax) & this.convertToDec(this.reg_bx));
+            this.result = this.invertBits(this.convertToBin(this.convertToDec(this.reg_ax) & this.convertToDec(this.reg_bx)));
         },
         or() { 
             this.result = this.convertToBin(this.convertToDec(this.reg_ax) | this.convertToDec(this.reg_bx));
+        },
+        invertBits(n) {
+            return n.split('').map(function (x) {
+            return (1 - x).toString();
+            }).join('');
         },
         convertToDec(n) {
             return parseInt(n, 2).toString(10);
