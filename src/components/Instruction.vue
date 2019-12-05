@@ -3,6 +3,10 @@
         <h1>Instruction</h1>
         <form>
             <div class="form-group">
+                <label for="instruction">Instrução:</label>
+                <input v-model="instruction" type="text">
+            </div>
+            <div class="form-group">
                 <label for="registrador_ax">Registrador AX:</label>
                 <input v-model="reg_ax" type="text">
             </div>
@@ -10,7 +14,7 @@
                 <label for="registrador_bx">Registrador BX:</label>
                 <input v-model="reg_bx" type="text">
             </div>
-            <button v-on:click="and" type="button">METHOD</button>
+            <button v-on:click="select_instruction" type="button">METHOD</button>
         </form>
         <p>Resultado: {{ result }}</p>
     </div>
@@ -24,22 +28,32 @@ export default {
             reg_ax: 0,
             reg_bx: 0,
             result: 0,
+            instruction: '',
         };
     },
     mounted() {
     },
     methods: {
+        select_instruction() {
+            this[this.instruction]();
+        },
         xor() { 
-            this.result = (this.reg_ax ^ this.reg_bx) ? 1 : 0; 
+            this.result = this.convertToBin(this.convertToDec(this.reg_ax) ^ this.convertToDec(this.reg_bx)); 
         },
         and() { 
-            this.result = (this.reg_ax & this.reg_bx) ? 1 : 0;  
+            this.result = this.convertToBin(this.convertToDec(this.reg_ax) & this.convertToDec(this.reg_bx)); 
         },
         nand() { 
-            this.result = !(this.reg_ax & this.reg_bx) ? 1 : 0; 
+            this.result = this.convertToBin(this.convertToDec(this.reg_ax) & this.convertToDec(this.reg_bx));
         },
         or() { 
-            this.result = (this.reg_ax | this.reg_bx) ? 1 : 0;
+            this.result = this.convertToBin(this.convertToDec(this.reg_ax) | this.convertToDec(this.reg_bx));
+        },
+        convertToDec(n) {
+            return parseInt(n, 2).toString(10);
+        },
+        convertToBin(n) {
+            return (n >>> 0).toString(2);
         },
     },
 }
