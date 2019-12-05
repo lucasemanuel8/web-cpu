@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    <Instruction/>
     <h1>{{ msg }}</h1>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
@@ -31,8 +32,15 @@
 </template>
 
 <script>
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Instruction from './Instruction';
+
 export default {
   name: 'HelloWorld',
+  components: {
+    Instruction
+  },
   props: {
     msg: String
   }
