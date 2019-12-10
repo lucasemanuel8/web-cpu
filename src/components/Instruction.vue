@@ -17,7 +17,7 @@
                 <label for="registrador_bx">Registrador BX:</label>
                 <input v-model="reg_bx" type="text" class="reg" maxlength="4">
             </div>
-            <button v-on:click="select_instruction" type="button" class="btn btn-info">METHOD</button>
+            <button v-on:click="select_instruction" type="button" class="btn btn-info">START</button>
         </form>
         <p>Resultado: {{ result }}</p>
     </div>
@@ -28,53 +28,78 @@ export default {
     name: 'Instruction',
     data() {
         return {
-            reg_ax: 0,
-            reg_bx: 0,
-            result: 0,
+            reg_ax: '',
+            reg_bx: '',
+            result: '',
             instruction: '',
-            bits: 8,
+            bits: 4,
         };
     },
     mounted() {
     },
     methods: {
         select_instruction() {
-            this[this.instruction.toLowerCase()]();
+            try {
+                this.validate();
+                this[this.instruction.toLowerCase()]();
+            } catch (e) {
+                if(e instanceof TypeError)
+                    alert("Instrução Invalida!");
+            }
         },
-        xor() { 
-            this.result = this.convertToBin(this.convertToDec(this.reg_ax) ^ this.convertToDec(this.reg_bx)); 
+        xor() {
+            this.result = this.compare("^");
         },
-        and() { 
-            this.result = this.convertToBin(this.convertToDec(this.reg_ax) & this.convertToDec(this.reg_bx)); 
+        and() {
+            this.result = this.compare("&");
         },
         nand() { 
-            this.result = this.invertBits(this.convertToBin(this.convertToDec(this.reg_ax) & this.convertToDec(this.reg_bx)));
+            this.result = this.invertBits(this.compare("&"));
         },
         or() { 
-            this.result = this.convertToBin(this.convertToDec(this.reg_ax) | this.convertToDec(this.reg_bx));
+            this.result = this.compare("|");
         },
         nor() { 
-            this.result = this.invertBits(this.convertToBin(this.convertToDec(this.reg_ax) | this.convertToDec(this.reg_bx)));
+            this.result = this.invertBits(this.compare("|"));
         },
         xnor() {
-            this.result = this.invertBits(this.convertToBin(this.convertToDec(this.reg_ax) ^ this.convertToDec(this.reg_bx)));
+            this.result = this.invertBits(this.compare("^"));
+        },
+        validate() {
+            this.reg_ax = this.verifyNumber(this.reg_ax);
+            this.reg_bx = this.verifyNumber(this.reg_bx);
+        },
+        compare(operator) {
+            var reg_bx = this.reg_bx;
+            return this.reg_ax.split('').map(function (n, i) {
+                return eval(n + operator + reg_bx[i]);
+            }).join('');
+        },
+        verifyNumber(n) {
+            if (n.length < this.bits) 
+                return this.setZerosInLeft(n);     
+            return n;
+        },
+        setZerosInLeft(n) {
+            var len = n.length;
+            var x = n;
+            for (; len < this.bits; len++)
+                x = "0" + x.toString();
+            return x;
         },
         setBits(bits) {
             this.bits = bits;
             document.querySelectorAll(".reg").forEach(function (input) {
                 input.maxLength = bits;
             });
+            this.reg_bx = '';
+            this.reg_ax = '';
+            this.result = '';
         },
         invertBits(n) {
             return n.split('').map(function (x) {
                 return (1 - x).toString();
             }).join('');
-        },
-        convertToDec(n) {
-            return parseInt(n, 2).toString(10);
-        },
-        convertToBin(n) {
-            return (n >>> 0).toString(2);
         },
     },
 }
