@@ -14,7 +14,7 @@
                 <label for="registrador_bx">Registrador BX:</label>
                 <input v-model="reg_bx" type="text">
             </div>
-            <button v-on:click="select_instruction" type="button">METHOD</button>
+            <button v-on:click="select_instruction" type="button" class="btn btn-info">METHOD</button>
         </form>
         <p>Resultado: {{ result }}</p>
     </div>
@@ -35,7 +35,7 @@ export default {
     },
     methods: {
         select_instruction() {
-            this[this.instruction]();
+            this[this.instruction.toLowerCase()]();
         },
         xor() { 
             this.result = this.convertToBin(this.convertToDec(this.reg_ax) ^ this.convertToDec(this.reg_bx)); 
@@ -49,9 +49,15 @@ export default {
         or() { 
             this.result = this.convertToBin(this.convertToDec(this.reg_ax) | this.convertToDec(this.reg_bx));
         },
+        nor() { 
+            this.result = this.invertBits(this.convertToBin(this.convertToDec(this.reg_ax) | this.convertToDec(this.reg_bx)));
+        },
+        xnor() {
+            this.result = this.invertBits(this.convertToBin(this.convertToDec(this.reg_ax) ^ this.convertToDec(this.reg_bx)));
+        },
         invertBits(n) {
             return n.split('').map(function (x) {
-            return (1 - x).toString();
+                return (1 - x).toString();
             }).join('');
         },
         convertToDec(n) {
@@ -64,6 +70,11 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-
+<style>
+input {
+    background-color: rgba(255, 255, 255, .2);
+    border-radius: .4em;
+    padding: 0 .4em;
+    color: #fff;
+}
 </style>
