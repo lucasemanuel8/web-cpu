@@ -174,6 +174,7 @@ export default {
             this.reg_ax = '';
             this.result = '';
             this.carry = '';
+            document.querySelector("#instruction").focus();
         },
         invertBits(n) {
             return n.split('').map(function (x) {
