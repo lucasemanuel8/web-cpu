@@ -64,6 +64,7 @@ export default {
     methods: {
         select_instruction() {
             try {
+                this.carry = '';
                 this.validate();
                 this[this.instruction.toLowerCase()]();
                 document.querySelector(".row-result").classList.remove("d-none");
@@ -95,7 +96,7 @@ export default {
         add() {
             var reg_bx_r = this.reg_bx.split('').reverse().join('');
             var reg_ax_r = this.reg_ax.split('').reverse().join('');
-            var carry = this.carry;
+            var carry = '';
             this.result = (reg_ax_r.split('').map(function (n, i) {
                 if (carry === '') carry = 0;
                 var add = Number(n) + Number(reg_bx_r[i]) + Number(carry);
@@ -126,7 +127,6 @@ export default {
                 }
                 return n;
             }).join('')).split('').reverse().join('');
-            this.carry = 0;
         },
         validate() {
             this.reg_ax = this.verifyNumber(this.reg_ax);
