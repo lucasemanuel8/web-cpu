@@ -15,6 +15,16 @@ npm run serve
 npm run build
 ```
 
+## Documentação
+Instruções programadas:
+* AND
+* NAND
+* OR
+* XOR
+* NOR
+* XNOR
+
+<!-- 
 ### Run your tests
 ```
 npm run test
@@ -26,4 +36,4 @@ npm run lint
 ```
 
 ### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+See [Configuration Reference](https://cli.vuejs.org/config/). -->
