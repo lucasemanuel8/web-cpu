@@ -34,9 +34,9 @@
             </div>
         </div>
         <div class="row d-none row-result">
-            <div class="col-sm-4 offset-sm-4">
-                <p class="result">
-                    Resultado 
+            <div class="col-sm-6 offset-sm-3">
+                <p class="result text-center">
+                    Resultado <span v-if="carry !== ''"> - Carry [{{ this.carry }}]</span> 
                     <span class="result">{{ result }}</span>
                 </p>
                 <p>Para copiar click duas vezes no resultado.</p>
@@ -55,6 +55,7 @@ export default {
             result: '',
             instruction: '',
             bits: 4,
+            carry: '',
         };
     },
     mounted() {
@@ -98,6 +99,26 @@ export default {
         },
         xnor() {
             this.result = this.invertBits(this.compare("^"));
+        },
+        add() {
+            var reg_bx_r = this.reg_bx.split('').reverse().join('');
+            var reg_ax_r = this.reg_ax.split('').reverse().join('');
+            var carry = this.carry;
+            this.result = (reg_ax_r.split('').map(function (n, i) {
+                if (carry === '') carry = 0;
+                var add = Number(n) + Number(reg_bx_r[i]) + Number(carry);
+                if (add == 1 || add == 0) {
+                    carry = 0;
+                } else if (add == 2) {
+                    carry = 1;
+                    add = 0;
+                } else if (add == 3) {
+                    carry = 1;
+                    add = 1;
+                }
+                return add;
+            }).join('')).split('').reverse().join('');
+            this.carry = carry;
         },
         validate() {
             this.reg_ax = this.verifyNumber(this.reg_ax);
@@ -144,6 +165,7 @@ export default {
             this.reg_bx = '';
             this.reg_ax = '';
             this.result = '';
+            this.carry = '';
         },
         invertBits(n) {
             return n.split('').map(function (x) {
@@ -299,6 +321,13 @@ span.result {
     .list-bits li:not(:last-child):after {
         content: "";
         margin-left: 0;
+    }
+}
+
+@media (max-width: 400px) {
+    span.result {
+        font-size: 1.4em;
+        cursor: pointer;
     }
 }
 
