@@ -120,6 +120,22 @@ export default {
             }).join('')).split('').reverse().join('');
             this.carry = carry;
         },
+        comp() {
+            var reg_ax_i = this.invertBits(this.reg_ax.split('').reverse().join(''));
+            var one = 1;
+            this.result = (reg_ax_i.split('').map(function (n) {
+                if (one === 1) {
+                    if (n == 1) {
+                        n = 0;
+                    } else if (n == 0) {
+                        n = 1;
+                        one = 0;
+                    }
+                }
+                return n;
+            }).join('')).split('').reverse().join('');
+            this.carry = 0;
+        },
         validate() {
             this.reg_ax = this.verifyNumber(this.reg_ax);
             this.reg_bx = this.verifyNumber(this.reg_bx);

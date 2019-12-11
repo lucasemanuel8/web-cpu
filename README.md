@@ -16,6 +16,8 @@ Instruções programadas:
 * XOR
 * NOR
 * XNOR
+* ADD
+* COMP [Complemento de 2]
 
 *******
 
