@@ -17,13 +17,13 @@
                         <div class="col-md-4 offset-md-4">
                             <div class="form-group">
                                 <label for="instruction">Instrução:</label>
-                                <input v-model="instruction" class="form-control" type="text" maxLength="4" pattern="/[0-1]/">
+                                <input v-model="instruction" class="form-control" id="instruction" type="text" maxLength="4" pattern="/[0-1]/">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="form_reg_ax">
                                 <label for="registrador_ax">Registrador AX:</label>
                                 <input v-model="reg_ax" type="text" class="reg form-control" maxlength="4">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="form_reg_ab">
                                 <label for="registrador_bx">Registrador BX:</label>
                                 <input v-model="reg_bx" type="text" class="reg form-control" maxlength="4">
                             </div>
@@ -37,7 +37,7 @@
             <div class="col-sm-6 offset-sm-3">
                 <p class="result text-center">
                     Resultado <span v-if="carry !== ''"> - Carry [{{ this.carry }}]</span> 
-                    <span class="result">{{ result }}</span>
+                    <span class="result" v-on:dblclick="copyContent">{{ result }}</span>
                 </p>
                 <p>Para copiar click duas vezes no resultado.</p>
             </div>
@@ -59,15 +59,7 @@ export default {
         };
     },
     mounted() {
-        document.querySelector("span.result").addEventListener("dblclick", function () {
-            let content = this.textContent;
-            var textArea = document.createElement("textarea");
-            textArea.value = content;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand("Copy");
-            textArea.remove();
-        });
+        document.querySelector("#instruction").focus();
     },
     methods: {
         select_instruction() {
@@ -188,6 +180,15 @@ export default {
                 return (1 - x).toString();
             }).join('');
         },
+        copyContent() {
+            let content = document.querySelector("span.result").textContent;
+            var textArea = document.createElement("textarea");
+            textArea.value = content;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("Copy");
+            textArea.remove();
+        }
     },
 }
 </script>
