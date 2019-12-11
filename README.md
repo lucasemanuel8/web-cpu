@@ -9,6 +9,9 @@ Autor: [Lucas Emanuel](https://github.com/lucasemanuel8)
 *******
 
 ## Documentação
+
+O programa tem três entradas, a instrução e os registradores AX e BX podendo operar em 4, 8, ou 16 bits (você escolhe). Cada registrador deve recerber somente valores binários.
+
 Instruções programadas:
 * AND
 * NAND
@@ -18,6 +21,8 @@ Instruções programadas:
 * XNOR
 * ADD
 * COMP [Complemento de 2]
+
+Obs: O complemento de 2 usa somento o registrador AX.
 
 *******
 
