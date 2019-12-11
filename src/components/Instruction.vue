@@ -5,7 +5,7 @@
                 <h1 class="title">WEB CPU</h1>
                 <h4>Trabalho de Arquitetura e Organização de Computadores</h4>
                 <h5>
-                    <a href="https://github.com/lucasemanuel8/web-cpu" class="link active">@lucasemanuel8/web-cpu</a>
+                    <a href="https://github.com/lucasemanuel8/web-cpu" class="link">@lucasemanuel8/web-cpu</a>
                 </h5>
                 <ul class="list-bits">
                     <li><a href="#" v-on:click="setBits(4)" class="select-bits active" id="4-bits">4 bits</a></li>
@@ -236,6 +236,7 @@ a:hover {
 
 a.link {
     text-decoration: underline;
+    color: rgb(50, 0, 0);
 }
 
 input.form-control {
