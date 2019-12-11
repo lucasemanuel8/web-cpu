@@ -1,39 +1,46 @@
 <template>
-    <div class="instruction row">
-        <div class="col-sm">
-        <h1 class="title">WEB CPU</h1>
-        <h4>Trabalho de Arquitetura e Organização de Computadores</h4>
-        <h5>
-            <a href="https://github.com/lucasemanuel8/web-cpu" class="link">@lucasemanuel8/web-cpu</a>
-        </h5>
-        <ul class="list-bits">
-            <li><a href="#" v-on:click="setBits(4)" class="select-bits active" id="4-bits">4 bits</a></li>
-            <li><a href="#" v-on:click="setBits(8)" class="select-bits" id="8-bits">8 bits</a></li>
-            <li><a href="#" v-on:click="setBits(16)" class="select-bits" id="16-bits">16 bits</a></li>
-        </ul>
-        <form>
-            <div class="form-row">
-                <div class="col-md-4 offset-md-4">
-                    <div class="form-group">
-                        <label for="instruction">Instrução:</label>
-                        <input v-model="instruction" class="form-control" type="text" maxLength="3" pattern="/[0-1]/">
+    <div class="instruction">
+        <div class="row">
+            <div class="col-sm">
+                <h1 class="title">WEB CPU</h1>
+                <h4>Trabalho de Arquitetura e Organização de Computadores</h4>
+                <h5>
+                    <a href="https://github.com/lucasemanuel8/web-cpu" class="link active">@lucasemanuel8/web-cpu</a>
+                </h5>
+                <ul class="list-bits">
+                    <li><a href="#" v-on:click="setBits(4)" class="select-bits active" id="4-bits">4 bits</a></li>
+                    <li><a href="#" v-on:click="setBits(8)" class="select-bits" id="8-bits">8 bits</a></li>
+                    <li><a href="#" v-on:click="setBits(16)" class="select-bits" id="16-bits">16 bits</a></li>
+                </ul>
+                <form>
+                    <div class="form-row">
+                        <div class="col-md-4 offset-md-4">
+                            <div class="form-group">
+                                <label for="instruction">Instrução:</label>
+                                <input v-model="instruction" class="form-control" type="text" maxLength="4" pattern="/[0-1]/">
+                            </div>
+                            <div class="form-group">
+                                <label for="registrador_ax">Registrador AX:</label>
+                                <input v-model="reg_ax" type="text" class="reg form-control" maxlength="4">
+                            </div>
+                            <div class="form-group">
+                                <label for="registrador_bx">Registrador BX:</label>
+                                <input v-model="reg_bx" type="text" class="reg form-control" maxlength="4">
+                            </div>
+                            <button v-on:click="select_instruction" type="button" class="btn btn-dark btn-block">START</button>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="registrador_ax">Registrador AX:</label>
-                        <input v-model="reg_ax" type="text" class="reg form-control" maxlength="4">
-                    </div>
-                    <div class="form-group">
-                        <label for="registrador_bx">Registrador BX:</label>
-                        <input v-model="reg_bx" type="text" class="reg form-control" maxlength="4">
-                    </div>
-                    <button v-on:click="select_instruction" type="button" class="btn btn-danger btn-block">START</button>
-                </div>
+                </form>
             </div>
-        </form>
-        <p class="result" v-if="result">
-            Resultado 
-            <span class="result">{{ result }}</span>
-        </p>
+        </div>
+        <div class="row d-none row-result">
+            <div class="col-sm-4 offset-sm-4">
+                <p class="result">
+                    Resultado 
+                    <span class="result">{{ result }}</span>
+                </p>
+                <p>Para copiar click duas vezes no resultado.</p>
+            </div>
         </div>
     </div>
 </template>
@@ -51,12 +58,22 @@ export default {
         };
     },
     mounted() {
+        document.querySelector("span.result").addEventListener("dblclick", function () {
+            let content = this.textContent;
+            var textArea = document.createElement("textarea");
+            textArea.value = content;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("Copy");
+            textArea.remove();
+        });
     },
     methods: {
         select_instruction() {
             try {
                 this.validate();
                 this[this.instruction.toLowerCase()]();
+                document.querySelector(".row-result").classList.remove("d-none");
             } catch (e) {
                 if(e instanceof TypeError)
                     alert("Instrução Invalida!");
@@ -117,6 +134,7 @@ export default {
             });
             this.setClassActive(bits);
             this.clearInputs();
+            document.querySelector(".row-result").classList.add("d-none");
         },
         setClassActive(bits) {
             document.querySelector(".active").classList.remove("active");
@@ -138,11 +156,23 @@ export default {
 
 <style>
 .instruction {
-    margin-top: 4em;
+    margin-top: 2em;
 }
 
 .instruction {
     padding-bottom: 2em;
+}
+
+.btn-dark {
+    color: #fff;
+    background-color: #1d2124;
+    border-color: #1d2124;
+}
+
+.btn-dark:hover {
+    color: #fff;
+    background-color: #23272b;
+    border-color: #23272b;
 }
 
 h1.title {
@@ -189,7 +219,7 @@ h5 ul li {
 }
 
 .active {
-    color: rgb(216, 7, 73);
+    color: #121518;
 }
 
 a {
@@ -200,8 +230,12 @@ a {
 
 a:hover {
     font-size: 1.8em;
-    color:#dc3545;
+    color:#680c15;
     text-decoration: none;
+}
+
+a.link {
+    text-decoration: underline;
 }
 
 input.form-control {
@@ -234,8 +268,12 @@ button {
 
 .result {
     text-transform: uppercase;
-    font-size: 1.4rem;
+    font-size: 1.4em;
     display: block;
+}
+
+p {
+    margin: 0;
 }
 
 p.result {
@@ -243,15 +281,11 @@ p.result {
 }
 
 span.result {
-    font-size: 2rem;
-    display: block;
+    font-size: 2em;
+    cursor: pointer;
 }
 
 @media (max-width: 480px) {
-    .instruction {
-        margin-top: 2em;
-    }
-
     .list-bits li {
         margin-right: 0;
         display: block;
@@ -265,7 +299,6 @@ span.result {
         content: "";
         margin-left: 0;
     }
-
 }
 
 </style>
