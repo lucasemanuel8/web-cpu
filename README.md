@@ -1,5 +1,24 @@
 # web-cpu
 
+## Trabalho de Arquitetura e Organização de Computadores
+
+O Web-cpu executa instruções básicas de uma cpu.
+
+Autor: [Lucas Emanuel](https://github.com/lucasemanuel8)
+
+*******
+
+## Documentação
+Instruções programadas:
+* AND
+* NAND
+* OR
+* XOR
+* NOR
+* XNOR
+
+*******
+
 ## Project setup
 ```
 npm install
@@ -15,16 +34,6 @@ npm run serve
 npm run build
 ```
 
-## Documentação
-Instruções programadas:
-* AND
-* NAND
-* OR
-* XOR
-* NOR
-* XNOR
-
-<!-- 
 ### Run your tests
 ```
 npm run test
@@ -36,4 +45,4 @@ npm run lint
 ```
 
 ### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/). -->
+See [Configuration Reference](https://cli.vuejs.org/config/).
