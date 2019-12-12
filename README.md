@@ -1,18 +1,16 @@
-# web-cpu
+# Web-cpu
 
-## Trabalho de Arquitetura e Organização de Computadores
+Web-cpu é um simulador de processador que executa instruções de no máximo 16 bits. Trabalho para a matéria  Arquitetura e Organização de Computadores.
 
-O Web-cpu executa instruções básicas de uma cpu.
+## Iniciando a aplicação 
 
-Autor: [Lucas Emanuel](https://github.com/lucasemanuel8)
+Para iniciar a aplicação basta acessar [Web-cpu](https://lucasemanuel8.github.io/web-cpu/).
 
-*******
+## Como usar?
 
-## Documentação
+O programa tem três entradas, a instrução a ser executada e os registradores AX e BX podendo operar em 4, 8, ou 16 bits (você escolhe), cada registrador deve recerber somente valores binários.
 
-O programa tem três entradas, a instrução e os registradores AX e BX podendo operar em 4, 8, ou 16 bits (você escolhe). Cada registrador deve recerber somente valores binários.
-
-Instruções programadas:
+A aplicação esta preparada para receber as seguintes instruções:
 * AND
 * NAND
 * OR
@@ -24,32 +22,6 @@ Instruções programadas:
 
 Obs: O complemento de 2 usa somento o registrador AX.
 
-*******
+## Autor
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- Lucas Emanuel - [lucasemanuel8](https://github.com/lucasemanuel8)
