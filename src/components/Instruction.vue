@@ -3,10 +3,10 @@
         <div class="row">
             <div class="col-sm">
                 <h1 class="title">WEB CPU</h1>
-                <h4>Trabalho de Arquitetura e Organização de Computadores</h4>
-                <h5>
-                    <a href="https://github.com/lucasemanuel8/web-cpu" class="link">@lucasemanuel8/web-cpu</a>
-                </h5>
+                <h2>Simulador de processador</h2>
+                <h3>
+                    Como usar: <a href="https://github.com/lucasemanuel8/web-cpu#como-usar" class="link">Leia-me</a>
+                </h3>
                 <ul class="list-bits">
                     <li><a href="#" v-on:click="setBits(4)" class="select-bits active" id="4-bits">4 bits</a></li>
                     <li><a href="#" v-on:click="setBits(8)" class="select-bits" id="8-bits">8 bits</a></li>
@@ -23,7 +23,7 @@
                                 <label for="registrador_ax">Registrador AX:</label>
                                 <input v-model="reg_ax" type="text" class="reg form-control" maxlength="4">
                             </div>
-                            <div class="form-group" id="form_reg_ab">
+                            <div class="form-group" id="form_reg_bx">
                                 <label for="registrador_bx">Registrador BX:</label>
                                 <input v-model="reg_bx" type="text" class="reg form-control" maxlength="4">
                             </div>
@@ -42,6 +42,7 @@
                 <p>Para copiar click duas vezes no resultado.</p>
             </div>
         </div>
+        <h3 class="author">Criado por: <a href="https://github.com/lucasemanuel8" class="link">@lucasemanuel8</a></h3>
     </div>
 </template>
 
@@ -60,6 +61,13 @@ export default {
     },
     mounted() {
         document.querySelector("#instruction").focus();
+        var input_reg_bx = document.querySelector("#form_reg_bx");
+        document.querySelector("#instruction").addEventListener("input", function () {
+            if(this.value.toLowerCase() == "comp")
+                input_reg_bx.classList.add("d-none");
+            else
+                input_reg_bx.classList.remove("d-none");
+        });
     },
     methods: {
         select_instruction() {
@@ -129,8 +137,8 @@ export default {
             }).join('')).split('').reverse().join('');
         },
         validate() {
-            this.reg_ax = this.verifyNumber(this.reg_ax);
-            this.reg_bx = this.verifyNumber(this.reg_bx);
+            this.reg_ax = this.validateNumber(this.reg_ax);
+            this.reg_bx = this.validateNumber(this.reg_bx);
         },
         compare(operator) {
             var reg_bx = this.reg_bx;
@@ -138,7 +146,7 @@ export default {
                 return eval(n + operator + reg_bx[i]);
             }).join('');
         },
-        verifyNumber(n) {
+        validateNumber(n) {
             this.isBinary(n);
             if (n.length < this.bits) 
                 return this.setZerosInLeft(n);     
@@ -189,7 +197,7 @@ export default {
             textArea.select();
             document.execCommand("Copy");
             textArea.remove();
-        }
+        },
     },
 }
 </script>
@@ -216,11 +224,13 @@ export default {
 }
 
 h1.title {
-    font-size: 4em; 
+    font-size: 4em;
+    margin-bottom: 0;
 }
 
 ul {
     padding-inline-start: 0px;
+    margin-bottom: 0.5rem;
 }
 
 ul li {
@@ -228,15 +238,19 @@ ul li {
     display: inline;
 }
 
-h5 a {
+h3 {
+    font-size: 1.4em;
+}
+
+h3 a {
     font-size: 1em;
 }
 
-h5 a:hover {
+h3 a:hover {
     font-size: 1.2em;
 }
 
-h5 ul li {
+h3 ul li {
     text-align: center;
     display: block;
 }
@@ -324,6 +338,10 @@ p.result {
 span.result {
     font-size: 2em;
     cursor: pointer;
+}
+
+h3.author {
+    margin-top: .6em;
 }
 
 @media (max-width: 480px) {
