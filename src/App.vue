@@ -21,8 +21,8 @@ export default {
 body {
 
   background: #ED213A;  /* fallback for old browsers */
-  background: url("https://www.transparenttextures.com/patterns/cubes.png"), -webkit-linear-gradient(to right, rgb(138, 6, 6), #ED213A);  /* Chrome 10-25, Safari 5.1-6 */
-  background: url("https://www.transparenttextures.com/patterns/cubes.png"), linear-gradient(to right, rgb(138, 6, 6), #ED213A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: url(./assets/background.png), -webkit-linear-gradient(to right, rgb(138, 6, 6), #ED213A);  /* Chrome 10-25, Safari 5.1-6 */
+  background: url(./assets/background.png), linear-gradient(to right, rgb(138, 6, 6), #ED213A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 input {
