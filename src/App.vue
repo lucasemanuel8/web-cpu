@@ -1,42 +1,39 @@
 <template>
   <div class="container" id="app">
-    <Instruction/>
+    <Instruction />
   </div>
 </template>
 
 <script>
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Instruction from './components/Instruction.vue';
+import "bootstrap/dist/css/bootstrap.min.css";
+import Instruction from "./components/Instruction.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    Instruction
-  }
-}
+    Instruction,
+  },
+};
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Lato|Lilita+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&display=swap");
 body {
-
-  background: #ED213A;  /* fallback for old browsers */
-  background: url(./assets/background.png), -webkit-linear-gradient(to right, rgb(138, 6, 6), #ED213A);  /* Chrome 10-25, Safari 5.1-6 */
-  background: url(./assets/background.png), linear-gradient(to right, rgb(138, 6, 6), #ED213A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #ed213a;
+  background: url(./assets/background.png), #eeeeee;
 }
 
 input {
-  border:none;
-  background-image:none;
+  border: none;
+  background-image: none;
   box-shadow: none;
 }
 
 #app {
-  font-family: 'Lilita One', cursive;
+  font-family: "Exo 2", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #ffffff;
+  color: #373a40;
 }
-
 </style>

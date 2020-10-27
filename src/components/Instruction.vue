@@ -1,48 +1,54 @@
 <template>
     <div class="instruction">
-        <div class="row">
-            <div class="col-sm">
-                <h1 class="title">WEB CPU</h1>
+        <div class="row justify-content-center align-items-center">
+            <div class="col">
+                <h1 class="title">WEB-CPU</h1>
                 <h2>Simulador de processador</h2>
-                <h3>
-                    Como usar: <a href="https://github.com/lucasemanuel8/web-cpu#como-usar" class="link">Leia-me</a>
-                </h3>
-                <ul class="list-bits">
-                    <li><a href="#" v-on:click="setBits(4)" class="select-bits active" id="4-bits">4 bits</a></li>
-                    <li><a href="#" v-on:click="setBits(8)" class="select-bits" id="8-bits">8 bits</a></li>
-                    <li><a href="#" v-on:click="setBits(16)" class="select-bits" id="16-bits">16 bits</a></li>
-                </ul>
-                <form>
-                    <div class="form-row">
-                        <div class="col-md-4 offset-md-4">
-                            <div class="form-group">
-                                <label for="instruction">Instrução:</label>
-                                <input v-model="instruction" class="form-control" id="instruction" type="text" maxLength="4" pattern="/[0-1]/">
-                            </div>
-                            <div class="form-group" id="form_reg_ax">
-                                <label for="registrador_ax">Registrador AX:</label>
-                                <input v-model="reg_ax" type="text" class="reg form-control" maxlength="4">
-                            </div>
-                            <div class="form-group" id="form_reg_bx">
-                                <label for="registrador_bx">Registrador BX:</label>
-                                <input v-model="reg_bx" type="text" class="reg form-control" maxlength="4">
-                            </div>
-                            <button v-on:click="select_instruction" type="button" class="btn btn-dark btn-block">START</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="row d-none row-result">
-            <div class="col-sm-6 offset-sm-3">
-                <p class="result text-center">
-                    Resultado <span v-if="carry !== ''"> - Carry [{{ this.carry }}]</span> 
-                    <span class="result" v-on:dblclick="copyContent">{{ result }}</span>
+                <p class="how-to">
+                    Como usar: <a href="https://github.com/lucasemanuel/web-cpu#como-usar" class="link">Leia-me</a>
                 </p>
-                <p>Para copiar click duas vezes no resultado.</p>
+                <span class="list-bits">
+                    <a href="#" v-on:click="setBits(4)" class="select-bits active" id="4-bits">4 bits</a>
+                    <span class="separator"/>
+                    <a href="#" v-on:click="setBits(8)" class="select-bits" id="8-bits">8 bits</a>
+                    <span class="separator"/>
+                    <a href="#" v-on:click="setBits(16)" class="select-bits" id="16-bits">16 bits</a>
+                </span>
+                <form>
+                    <div class="form-group">
+                        <label for="instruction">Instrução:</label>
+                        <select v-model="instruction" id="instruction" class="form-control">
+                            <option value="AND">AND</option>
+                            <option value="NAND">NAND</option>
+                            <option value="OR">OR</option>
+                            <option value="XOR">XOR</option>
+                            <option value="NOR">NOR</option>
+                            <option value="XNOR">XNOR</option>
+                            <option value="ADD">ADD</option>
+                            <option value="COMP">Complemento de 2</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="form_reg_ax">
+                        <label for="registrador_ax">Registrador AX:</label>
+                        <input v-model="reg_ax" type="text" class="reg form-control" maxlength="4" id="registrador_ax">
+                    </div>
+                    <div class="form-group" id="form_reg_bx">
+                        <label for="registrador_bx">Registrador BX:</label>
+                        <input v-model="reg_bx" type="text" class="reg form-control" maxlength="4" id="registrador_bx" pattern="[0-1]">
+                    </div>
+                    <button v-on:click="select_instruction" type="button" class="btn btn-dark btn-block font-weight-bold">EXEC</button>
+                </form>
+                <div class="d-none row-result">
+                    <span class="result text-center">
+                        Resultado <span v-if="carry !== ''"> - Carry [{{ this.carry }}]</span> 
+                        <span class="result content-copy" v-on:dblclick="copyContent"> {{ result }}</span>
+                    </span>
+                    <p class="copy">Para copiar click duas vezes no resultado.</p>
+                </div>
+                <h3 class="author">Criado por: <a href="https://github.com/lucasemanuel" class="link">@lucasemanuel</a></h3>
             </div>
         </div>
-        <h3 class="author">Criado por: <a href="https://github.com/lucasemanuel8" class="link">@lucasemanuel8</a></h3>
+
     </div>
 </template>
 
@@ -190,7 +196,7 @@ export default {
             }).join('');
         },
         copyContent() {
-            let content = document.querySelector("span.result").textContent;
+            let content = document.querySelector("span.content-copy").textContent;
             var textArea = document.createElement("textarea");
             textArea.value = content;
             document.body.appendChild(textArea);
@@ -203,7 +209,69 @@ export default {
 </script>
 
 <style>
-.instruction {
+.row {
+    height: 100vh;
+}
+.row .col {
+    max-width: 480px;
+}
+
+.how-to {
+    font-size: 1.6rem;
+}
+
+h1.title {
+    font-size: 4em;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.list-bits {
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.list-bits a {
+    text-decoration: none;
+}
+
+.list-bits a:active, .list-bits a:hover, .active {
+    color: #373a40;
+}
+
+.separator:after {
+    content: '|';
+    margin: auto 1rem;
+}
+
+form {
+    margin-top: 1rem;
+}
+
+form label {
+    font-size: 1.2rem;
+}
+
+.row-result {
+    font-size: 1.6rem;
+    margin-top: 1rem;
+}
+
+.author {
+    font-size: 1.6rem;
+    margin-top: 1rem;
+}
+
+span .result {
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+
+p.copy {
+    font-size: 1rem;
+}
+
+/* .instruction {
     margin-top: 2em;
 }
 
@@ -223,10 +291,6 @@ export default {
     border-color: #23272b;
 }
 
-h1.title {
-    font-size: 4em;
-    margin-bottom: 0;
-}
 
 ul {
     padding-inline-start: 0px;
@@ -342,29 +406,6 @@ span.result {
 
 h3.author {
     margin-top: .6em;
-}
-
-@media (max-width: 480px) {
-    .list-bits li {
-        margin-right: 0;
-        display: block;
-    }
-
-    .list-bits li:first-child {
-        margin-left: 0;
-    }
-
-    .list-bits li:not(:last-child):after {
-        content: "";
-        margin-left: 0;
-    }
-}
-
-@media (max-width: 400px) {
-    span.result {
-        font-size: 1.4em;
-        cursor: pointer;
-    }
-}
+} */
 
 </style>
