@@ -1,10 +1,9 @@
 # Web-cpu
+> Web-cpu é um simulador de processador que executa instruções de no máximo 16 bits. Trabalho para a matéria  Arquitetura e Organização de Computadores.
 
-Web-cpu é um simulador de processador que executa instruções de no máximo 16 bits. Trabalho para a matéria  Arquitetura e Organização de Computadores.
+## Iniciando a aplicação
 
-## Iniciando a aplicação 
-
-Para iniciar a aplicação basta acessar [Web-cpu](https://lucasemanuel.github.io/web-cpu/).
+Para iniciar a aplicação basta acessar [lucasemanuel.github.io/web-cpu](https://lucasemanuel.github.io/web-cpu/).
 
 ## Como usar?
 
@@ -23,5 +22,4 @@ A aplicação esta preparada para receber as seguintes instruções:
 Obs: O complemento de 2 usa somento o registrador AX.
 
 ## Autor
-
-- Lucas Emanuel - [lucasemanuel](https://github.com/lucasemanuel)
+- [Lucas Emanuel](https://github.com/lucasemanuel)
